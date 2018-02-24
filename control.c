@@ -3,7 +3,7 @@
 void run_program(program_t *program){
     size_t data_pointer = 0;
     size_t program_index = 0;
-    int temporary = 0;
+    int temporary = 0; 
     while ((program_index >= 0 && program_index < program->length)){
         switch (program->control_code[program_index]){
             case INC_DP:
