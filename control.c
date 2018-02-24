@@ -22,20 +22,34 @@ void run_program(program_t *program){
                 printf("%c", get_data(data_pointer));
             break;
             case INPUT:
-                temporary = getc(STDIN);
+                scanf("%c", &temporary);
                 set_data(data_pointer, temporary);
             break;
             case JF:
                 if (get_data(data_pointer) == 0){
                     temporary = 0;
                     program_index++;
-                    while (program->control_code[program_index] != JB && temporary != 0){
+                    while (program->control_code[program_index] != JB || temporary != 0){
                         if (program->control_code[program_index] == JF){
                             temporary++;
                         }else if (program->control_code[program_index] == JB){
                             temporary--;
                         }
                         program_index++;
+                    }
+                }
+            break;
+            case JB:
+                if (get_data(data_pointer) != 0){
+                    temporary = 0;
+                    program_index--;
+                    while (program->control_code[program_index] != JF || temporary != 0){
+                        if (program->control_code[program_index] == JB){
+                            temporary++;
+                        }else if (program->control_code[program_index] == JF){
+                            temporary--;
+                        }
+                        program_index--;
                     }
                 }
             break;
